@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import {
+  Alert,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -13,17 +14,29 @@ import {Backgroud} from '../Components/Backgroud';
 import {WhiteLogo} from '../Components/WhiteLogo';
 import {loginStyles} from '../theme/loginTheme';
 import {useForm} from '../hooks/useForm';
+import {AuthContext} from '../context/AuthContext';
 
 interface Props extends StackScreenProps<any, any> {}
 
 export const LoginScreen = ({navigation}: Props) => {
+  const {signIn, errorMessage, removeError} = useContext(AuthContext);
   const {email, password, onChange} = useForm({
     email: '',
     password: '',
   });
+  useEffect(() => {
+    if (errorMessage.length === 0) {
+      return;
+    }
+    Alert.alert('Login Incorrext', errorMessage, [
+      {text: 'ok', onPress: removeError},
+    ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [errorMessage]);
+
   const onLogin = () => {
-    console.log({email, password});
     Keyboard.dismiss();
+    signIn({correo: email, password});
   };
   return (
     <>

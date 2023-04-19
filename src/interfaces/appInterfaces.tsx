@@ -14,3 +14,14 @@ export interface Usuario {
   uid: string;
   img?: string;
 }
+
+export interface LoginData {
+  correo: string;
+  password: string;
+}
+
+export interface RegisterData {
+  correo: string;
+  password: string;
+  nombre: string;
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import {
   View,
   Text,
@@ -7,22 +7,35 @@ import {
   TouchableOpacity,
   Keyboard,
   TextInput,
+  Alert,
 } from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {WhiteLogo} from '../Components/WhiteLogo';
 import {loginStyles} from '../theme/loginTheme';
 import {useForm} from '../hooks/useForm';
+import {AuthContext} from '../context/AuthContext';
 
 interface Props extends StackScreenProps<any, any> {}
 export const RegisterScreen = ({navigation}: Props) => {
+  const {signUp, errorMessage, removeError} = useContext(AuthContext);
   const {email, password, onChange, name} = useForm({
     name: '',
     email: '',
     password: '',
   });
+  useEffect(() => {
+    if (errorMessage.length === 0) {
+      return;
+    }
+    Alert.alert('Register Incorrext', errorMessage, [
+      {text: 'ok', onPress: removeError},
+    ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [errorMessage]);
   const onRegister = () => {
     console.log({email, password, name});
     Keyboard.dismiss();
+    signUp({nombre: name, password, correo: email});
   };
   return (
     <>
