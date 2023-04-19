@@ -8,11 +8,11 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {StackScreenProps} from '@react-navigation/stack';
 import {Backgroud} from '../Components/Backgroud';
 import {WhiteLogo} from '../Components/WhiteLogo';
 import {loginStyles} from '../theme/loginTheme';
 import {useForm} from '../hooks/useForm';
-import {StackScreenProps} from '@react-navigation/stack';
 
 interface Props extends StackScreenProps<any, any> {}
 
