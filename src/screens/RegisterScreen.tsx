@@ -33,7 +33,6 @@ export const RegisterScreen = ({navigation}: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errorMessage]);
   const onRegister = () => {
-    console.log({email, password, name});
     Keyboard.dismiss();
     signUp({nombre: name, password, correo: email});
   };
